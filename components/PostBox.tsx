@@ -35,7 +35,6 @@ function PostBox({ subreddit }: Props) {
     formState: { errors },
   } = useForm<FormData>();
   const onSubmit = handleSubmit(async (formData) => {
-    console.log(formData);
     const notification = toast.loading("Creating a new post...");
     try {
       // Query for the subreddit topic
@@ -49,11 +48,8 @@ function PostBox({ subreddit }: Props) {
       });
 
       const subredditExist = getSubredditListByTopic.length > 0;
-      console.log("subreddit ", subredditExist);
       if (!subredditExist) {
         // create subreddit
-        console.log("creating a new subreddit");
-
         const {
           data: { insertSubreddit: newSubreddit },
         } = await addSubreddit({
@@ -61,8 +57,6 @@ function PostBox({ subreddit }: Props) {
             topic: formData.subreddit,
           },
         });
-        console.log("Creating a post..", formData);
-
         const image = formData.postImage || "";
 
         const {
@@ -76,11 +70,8 @@ function PostBox({ subreddit }: Props) {
             username: session?.user?.name,
           },
         });
-
-        console.log("New Post added, ", newPost);
       } else {
         // use existing subreddit
-        console.log("using existing subreddit", getSubredditListByTopic);
         const image = formData.postImage || "";
 
         const {
@@ -94,8 +85,6 @@ function PostBox({ subreddit }: Props) {
             username: session?.user?.name,
           },
         });
-
-        console.log("New post added with existing subreddit ", newPost);
       }
 
       // After the post has been added!!

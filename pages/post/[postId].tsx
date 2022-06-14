@@ -53,8 +53,6 @@ function PostPage() {
     toast.success("Comment sucessfully posted!!!", {
       id: notification,
     });
-
-    console.log(data);
   };
   return (
     <div className="mx-auto my-7 max-w-5xl">

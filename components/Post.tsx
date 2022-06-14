@@ -31,8 +31,6 @@ function Post({ post }: Props) {
     },
   });
 
-  console.log("GET_ALL_VOTES_BY_POST_ID", data);
-
   const [addVote] = useMutation(ADD_VOTE, {
     refetchQueries: [GET_ALL_VOTES_BY_POST_ID, "getVoteUsingPost_id"],
   });
@@ -53,8 +51,6 @@ function Post({ post }: Props) {
     }
     if (vote && isUpVote) return;
     if (vote === false && !isUpVote) return;
-    console.log("votting....", isUpVote);
-
     const {
       data: { insertVote: newVote },
     } = await addVote({
@@ -64,8 +60,6 @@ function Post({ post }: Props) {
         upvote: isUpVote,
       },
     });
-
-    console.log("Insert vote ", data);
   };
 
   const displayVotes = (data: any) => {
